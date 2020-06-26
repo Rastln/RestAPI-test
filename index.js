@@ -8,31 +8,36 @@ const classInfo = { 'students': [
         "Name": "Tyran",
         "Last": "Banks",
         "StudentID": "99999999",
-        "Grades": "3.3"
+        "Grades": "3.3",
+        "email": "notarealemail@failed.com"
     },
     {
         "Name": "Bob",
         "Last": "Traverse",
         "StudentID": "12359812",
-        "Grades": "2.9"
+        "Grades": "2.9",
+        "email": "notarealemail@failed.com"
     },
     {
         "Name": "Jessie",
         "Last": "Riddle",
         "StudentID": "53234589",
-        "Grades": "3.4"
+        "Grades": "3.4",
+        "email": "notarealemail@failed.com"
     },
     {
         "Name": "Bob",
         "Last": "Marley",
         "StudentID": "12340588",
-        "Grades": "4.0"
+        "Grades": "4.0",
+        "email": "notarealemail@failed.com"
     },
     {
         "Name": "Test",
         "Last": "Driven",
         "StudentID": "2",
-        "Grades": "4.0"
+        "Grades": "4.0",
+        "email": "notarealemail@failed.com"
     }
 ]
 }
@@ -100,15 +105,21 @@ app.post('/grades/', function (req, res) {
     }
 })
 
+//test curl -d '{"Name":"Jimmy Johns","StudentID":"88888888", "Grades":"3.6", "email":"youhavefailed@fail.com"}' -H "Content-Type: application/json" -X POST http://localhost:3000/register
 app.post('/register/', function (req, res) {
+    // res.send("Found register")
     const StudentID = req.body.StudentID
     const Grades = req.body.Grades
     const Name = req.body.Name
+    const email = req.body.email
+    // res.send(`Added a new student: ${Name}, Student ID: ${StudentID}, Grade Average: ${Grades}`)
     const firstName = Name.split(" ")[0]
+    // res.send(`First name: ${Name.split(" ")}`)
     const lastName = Name.split(" ")[1]
-    var obj = JSON.parse(classInfo)
-    obj['students'].push({"Name":firstName, "Last":lastName,"StudentID":StudentID, "Grades":Grades})
-    res.send(`Added a new student: ${firstName} ${lastName}, Student ID: ${StudentID}, Grade Average: ${Grades}`)
+    if(Name != undefined && email != undefined)
+        res.send(`Added a new student: ${firstName} ${lastName}, Student ID: ${StudentID}, Grade Average: ${Grades}, email: ${email}`)
+    else
+        res.send("Student could not be added, Name or email is incorrect please check your spelling")
 })
 app.put('/user', function (req, res) {
 res.send('Got a PUT request at /user')
